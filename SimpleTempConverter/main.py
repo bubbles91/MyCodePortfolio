@@ -1,13 +1,18 @@
 #Simple conversion app that I can use to the repo through Git
 #Created by John Lovelace
 
+
+#Create the 2 decimal format
+twoDecimal = "{:.2f}".format()
+
+
 def convertFromCel():
     #Ask for the temperature that the user wants to convert assoc with temp variable
     temp = float(input('What is the temperature that you want to convert? '))
     #Convert and assoc with ftemp variable
     ftemp = (temp * 1.8) + 32
     #Print formated temp
-    print("{:.2f}".format(ftemp))
+    print(twoDecimal.format(ftemp))
 
 
 def convertFromFar():
@@ -16,7 +21,8 @@ def convertFromFar():
     # Convert and assoc with ftemp variable
     ctemp = (temp - 32) / 1.8
     # Print formated temp
-    print("{:.2f}".format(ctemp))
+    print(twoDecimal.format(ctemp))
+
 
 #Ask the user the type of temperature they want to convert assoc with flag variable
 flag = input('If you want to convert a Celsius temp enter "C". If you want to convert a Fahrenheit temp enter "F" ')
