@@ -1,7 +1,7 @@
 #Simple conversion app that I can use to the repo through Git
 #Created by John Lovelace
 
-def convertfromcel():
+def convertFromCel():
     #Ask for the temperature that the user wants to convert assoc with temp variable
     temp = float(input('What is the temperature that you want to convert? '))
     #Convert and assoc with ftemp variable
@@ -10,7 +10,7 @@ def convertfromcel():
     print("{:.2f}".format(ftemp))
 
 
-def convertfromfar():
+def convertFromFar():
     #Ask for the temperature that the user wants to convert assoc with temp variable
     temp = float(input('What is the temperature that you want to convert? '))
     # Convert and assoc with ftemp variable
@@ -27,6 +27,6 @@ while flag.upper() not in ["C", "F"]:
 
 #If statement to run the functions determined by the user input
 if flag.upper() == "C":
-    convertfromcel()
+    convertFromCel()
 elif flag.upper() == "F":
-    convertfromfar()
+    convertFromFar()
