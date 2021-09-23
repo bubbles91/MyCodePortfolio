@@ -3,7 +3,7 @@
 
 
 #Create the 2 decimal format
-twoDecimal = "{:.2f}".format()
+twoDecimal = "{:.2f}"
 
 
 def convertFromCel():
