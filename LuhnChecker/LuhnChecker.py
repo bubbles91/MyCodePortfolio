@@ -14,7 +14,7 @@ def LuhnCheck(cardNo):
     isSecond = False
     nDigits = len(cardNo)
     nSum = 0
-    
+
     # Append the first two numbers to a list
     for i in range(0,2):
         s.append(cardNo[i])
