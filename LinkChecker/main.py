@@ -44,7 +44,7 @@ def find_broken_links(url):
     if not broken_links:
         resp = 'No Bad Links!'
     else:
-        resp ='Bad Links: <br>' + '\n'.join([str(i[9:]) for i in broken_links])
+        resp ='Bad Links: <br>' + '\n'.join([i for i in broken_links])
 
     return  resp
 
@@ -53,6 +53,7 @@ def post_ifttt_webhook(event, value1):
     ifttt_event_url = IFTTT_url.format(event)
     requests.post(ifttt_event_url, data1)
     time.sleep(21600)
+
 
 link_file = 'Links.txt'
 new_links = []
