@@ -1,38 +1,40 @@
-import time
+# AppName: Link Checker
+# Use: Checks links that are added to a txt file for validity and emails using webhook the outcome.
+# Created by John Lovelace, 10/12/21
 
+
+import time
 import requests
 from os.path import exists
 from datetime import datetime
-
+# Init variables
 now = datetime.now()
-searched_links = []
 broken_links = []
 date = now.strftime(" -- %m/%d/%y")
 IFTTT_url = 'https://maker.ifttt.com/trigger/{}/with/key/'
+
+# Defines the function to checks the links. requests https get request checks status code and if 404 adds to the
+# broken link list. Also try except will add any other errors to broken link list.
 def find_broken_links(url):
-    if(url not in searched_links) and (("mailto:") not in url) and ("Javascript:" not in url) and ((".png") not in url) and ((".jpg") not in url) and ((".jpeg") not in url):
-            for i in url:
-                try:
-                    requestObj = requests.get(i)
-                    searched_links.append(i)
-                    if (requestObj.status_code == 404):
-                        broken_links.append("Broken: link " + i)
-                        print(broken_links[-1])
-                    elif (i == ''):
-                        break
-                    else:
-                        print("Not broken: link " + i)
+    for i in url:
+        try:
+            requestObj = requests.get(i)
+            if (requestObj.status_code == 404):
+                broken_links.append("Broken: link " + i)
+                print(broken_links[-1])
+            elif (i == ''):
+                break
+            else:
+                print("Not broken: link " + i)
 
-                except Exception as e:
-                    print("ERROR ERROR: Bad Link " + i)
-                    broken_links.append(i)
+        except Exception as e:
+            print("ERROR ERROR: Bad Link " + i)
+            broken_links.append(i)
 
-    else:
-        print('Something else went wrong.')
-
+# if the bad_links.txt file doesn't exist it is created
     if not exists('bad_links.txt'):
         g = open('bad_links.txt', 'w')
-
+# Iterate through the list and write link to file
     for i in broken_links:
         g = open('bad_links.txt', 'a')
         g.write(i)
@@ -40,7 +42,7 @@ def find_broken_links(url):
         g.write('\n')
         g.close()
     f.close()
-
+# Returns either no bad links or a list of the bad links for the webhook
     if not broken_links:
         resp = 'No Bad Links!'
     else:
@@ -48,17 +50,19 @@ def find_broken_links(url):
 
     return  resp
 
+# Defines the function for the webhook. One value output and repeats every 6 hours.
 def post_ifttt_webhook(event, value1):
     data1 = {'value1': value1}
     ifttt_event_url = IFTTT_url.format(event)
     requests.post(ifttt_event_url, data1)
     time.sleep(21600)
 
-
+# Inits the link file variable and reads file to list
 link_file = 'Links.txt'
 new_links = []
 with open(link_file, 'r') as f:
     new_links = f.read().splitlines()
 
+# Main function
 while True:
     post_ifttt_webhook('Link_Check', find_broken_links(new_links))
