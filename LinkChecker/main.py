@@ -11,7 +11,7 @@ from datetime import datetime
 now = datetime.now()
 broken_links = []
 date = now.strftime(" -- %m/%d/%y")
-IFTTT_url = 'https://maker.ifttt.com/trigger/{}/with/key/'
+IFTTT_url = 'https://maker.ifttt.com/trigger/{}/with/key/g161bWEm2bdv_2SNNRPKPdZ-iNUQ3uWG85llCS84u3b'
 
 # Defines the function to checks the links. requests https get request checks status code and if 404 adds to the
 # broken link list. Also try except will add any other errors to broken link list.
@@ -48,7 +48,7 @@ def find_broken_links(url):
     else:
         resp ='Bad Links: <br>' + '\n'.join([i for i in broken_links])
 
-    return  resp
+    return resp
 
 # Defines the function for the webhook. One value output and repeats every 6 hours.
 def post_ifttt_webhook(event, value1):
