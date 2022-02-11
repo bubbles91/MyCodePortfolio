@@ -42,16 +42,22 @@ hp_quotes= [
 '“Fame is a fickle friend, Harry. Celebrity is as celebrity does. Remember that.” — Gilderoy Lockhart'
 ]
 
-for comment in r.subreddit("MyHarryPotterBot").stream.comments(skip_existing=True):
-    rand_index = random.randint(0, len(hp_quotes)-1)
-    rand_quote = hp_quotes[rand_index]
-    if ("Harry Potter" in comment.body or "harry potter" in comment.body or "HARRY POTTER" in comment.body):
-        comment.reply(rand_quote)
+def bot_comment():
+    for comment in r.subreddit("MyHarryPotterBot").stream.comments(skip_existing=True):
+        rand_index = random.randint(0, len(hp_quotes)-1)
+        rand_quote = hp_quotes[rand_index]
+        if ("Harry Potter" in comment.body or "harry potter" in comment.body or "HARRY POTTER" in comment.body):
+            comment.reply(rand_quote)
 
-
+def retry_forever(bot_comment):
+    while True:
+        try:
+            bot_comment()
+        except Exception as e:
+            print(e)
 
 if __name__ == '__main__':
-    main()
+    run_forever()
 
 
 
