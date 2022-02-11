@@ -49,7 +49,7 @@ def bot_comment():
         if ("Harry Potter" in comment.body or "harry potter" in comment.body or "HARRY POTTER" in comment.body):
             comment.reply(rand_quote)
 
-def retry_forever(bot_comment):
+def retry_forever():
     while True:
         try:
             bot_comment()
